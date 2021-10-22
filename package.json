@@ -1,0 +1,39 @@
+{
+  "name": "hrpartnerpal",
+  "version": "0.0.1",
+  "description": "Hrpartnerpal fills timesheet info in hrparter website",
+  "main": "index.js",
+  "author": "Allison Machado Gonçalves <aallison93@gmail.com> (https://allison.bsb.br/)",
+  "license": "MIT",
+  "engines": {
+    "node": "^12",
+    "npm": "^6"
+  },
+  "scripts": {
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint --fix src/**/*.ts",
+    "prebuild": "npm run lint:fix && rm -rf ./dist",
+    "build": "tsc",
+    "start": "node dist/index",
+    "local": "npm run build && npm start | bunyan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/allisonmachado/hrpartnerpal.git"
+  },
+  "dependencies": {
+    "@types/node": "^16.11.3",
+    "@types/selenium-webdriver": "^4.0.15",
+    "bunyan": "^1.8.15",
+    "joi": "^17.4.2",
+    "selenium-webdriver": "^4.0.0"
+  },
+  "devDependencies": {
+    "@tsconfig/node12": "^1.0.9",
+    "@types/bunyan": "^1.8.7",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "eslint": "^8.1.0",
+    "typescript": "^4.4.4"
+  }
+}
