@@ -1,48 +1,29 @@
-import { Builder, By } from 'selenium-webdriver';
+import { Builder } from 'selenium-webdriver';
 
 import { logger } from './src/logger';
 import { sleepSeconds } from './src/util';
-import { quickPause } from './src/util/time';
+import { authenticate } from './src/steps/login';
+import { loadPortal } from './src/steps/init';
+import { clickOnLastTimesheetPeriod, clickOnTimesheetSideMenu } from './src/steps/timesheet';
 
-import { PASSWORD, PORTAL, USERNAME } from './src/util/environment';
+import { PORTAL } from './src/util/environment';
 
-(async function example() {
+(async () => {
   const driver = await new Builder().forBrowser('firefox').build();
   try {
-    await driver.get(PORTAL);
+    await loadPortal(driver);
+    logger.info(`login successfully done at ${PORTAL}`);
 
-    await quickPause();
-    logger.info('page successfully loaded');
-
-    const usernameInput = await driver.findElement(By.name('username'));
-    const passwordInput = await driver.findElement(By.name('password'));
-
-    usernameInput.sendKeys(USERNAME);
-    passwordInput.sendKeys(PASSWORD);
-
-    const loginButton = await driver.findElement(By.css('button[type=submit]'));
-    await loginButton.click();
-
-    await quickPause();
+    await authenticate(driver);
     logger.info('login performed successfully');
 
-    const timesheetMenu = await driver.findElement(By.xpath('/html/body/div[2]/nav/div/ul/li[9]/a'));
-    await timesheetMenu.click();
+    await clickOnTimesheetSideMenu(driver);
+    logger.info('timesheet list loaded successfully');
 
-    await quickPause();
-    logger.info('timesheet list screen loaded successfully');
+    await clickOnLastTimesheetPeriod(driver);
+    logger.info('last timesheet loaded successfully');
 
-    const [ timesheetTable ] = await driver.findElements(By.css('table'));
-
-    const rows = await timesheetTable.findElements(By.css('tr'));
-    const targetRow = rows.pop();
-
-    const buttons = await targetRow?.findElements(By.css('a'));
-    const targetButton = buttons?.pop();
-
-    targetButton?.click();
-
-    await sleepSeconds(10);
+    await sleepSeconds(5);
   } finally {
     await driver.quit();
   }

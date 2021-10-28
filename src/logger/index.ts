@@ -1,4 +1,5 @@
 import { createLogger } from 'bunyan';
+
 import { NODE_ENV } from '../util';
 
 export const logger = createLogger({ 
