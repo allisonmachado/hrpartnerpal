@@ -26,9 +26,12 @@ $ export HRPARTNERPAL_PASSWORD=supersecret
 $ cd hrpartnerpal && npm install
 ```
 
-3. Install [Firefox](https://www.mozilla.org/en-US/firefox/new/) and the respective [Selenium Gecko Driver](https://www.selenium.dev/documentation/getting_started/installing_browser_drivers/)
+3. Install the Browser and it's dependencies:
 
-4. Run Hrpartnerpal
+- [Firefox](https://www.mozilla.org/en-US/firefox/new/) 
+- [Selenium Gecko Driver](https://www.selenium.dev/documentation/getting_started/installing_browser_drivers/)
+
+4. Run the Hrpartnerpal via npm:
 
 ```bash
 $ npm run local
