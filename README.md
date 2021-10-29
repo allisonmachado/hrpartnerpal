@@ -3,7 +3,7 @@ Hrpartnerpal fills in timesheet info in hrparter website, so that you can have t
 
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/allisonmachado/hrpartnerpal) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/allisonmachado/hrpartnerpal) ![GitHub](https://img.shields.io/github/license/allisonmachado/hrpartnerpal)
 
-## Get started in 5 easy steps
+## Get started in 4 easy steps
 
 1. Download this source code:
 
@@ -42,4 +42,5 @@ However it also means we have plenty of room for improvements, pull-requests and
 So please take a look [at the desired features here](https://github.com/allisonmachado/hrpartnerpal/issues) to be included in the Hrpartnerpal!
 
 ## License
+
   [MIT](LICENSE)
