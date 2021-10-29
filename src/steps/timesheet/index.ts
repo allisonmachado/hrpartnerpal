@@ -55,7 +55,7 @@ const fillTimesheetFormRow = async (driver: WebElement): Promise<void> => {
     Key.BACK_SPACE,
     Key.BACK_SPACE,
     Key.BACK_SPACE,
-    '08:45'
+    '09:30'
   ));
 
   const endTimeInputs = await driver.findElements(By.name('end_time[]'));
@@ -65,7 +65,7 @@ const fillTimesheetFormRow = async (driver: WebElement): Promise<void> => {
     Key.BACK_SPACE,
     Key.BACK_SPACE,
     Key.BACK_SPACE,
-    '17:45'
+    '18:30'
   ));
 
   const breakDurationInputs = await driver.findElements(By.name('break_duration[]'));
