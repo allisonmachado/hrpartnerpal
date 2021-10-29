@@ -29,16 +29,36 @@ export const fillTimesheetForm = async (driver: WebDriver): Promise<void> => {
   const formTable = await driver.findElement(By.id('timesheetform'));
 
   const startTimeInputs = await formTable.findElements(By.name('start_time[]'));
-  startTimeInputs.forEach(i => i.sendKeys('09:00'));
+  startTimeInputs.forEach(i => i.sendKeys(
+    Key.BACK_SPACE,
+    Key.BACK_SPACE,
+    Key.BACK_SPACE,
+    Key.BACK_SPACE,
+    Key.BACK_SPACE,
+    '09:00'
+  ));
 
   const endTimeInputs = await formTable.findElements(By.name('end_time[]'));
-  endTimeInputs.forEach(i => i.sendKeys('18:00'));
+  endTimeInputs.forEach(i => i.sendKeys(
+    Key.BACK_SPACE,
+    Key.BACK_SPACE,
+    Key.BACK_SPACE,
+    Key.BACK_SPACE,
+    Key.BACK_SPACE,
+    '18:00'
+  ));
 
   const breakDurationInputs = await formTable.findElements(By.name('break_duration[]'));
-  await Promise.all(breakDurationInputs.map(i => i.sendKeys(Key.BACK_SPACE, Key.BACK_SPACE, Key.BACK_SPACE, '1')));
+  breakDurationInputs.forEach(i => i.sendKeys(
+    Key.BACK_SPACE,
+    Key.BACK_SPACE,
+    Key.BACK_SPACE,
+    '1'
+  ));
 
   const notesInput = await formTable.findElements(By.name('notes[]'));
-  notesInput.forEach(i => i.sendKeys('Working on sprint task'));
+  notesInput.forEach(i => i.clear());
+  notesInput.forEach(i => i.sendKeys('Working on sprint task.'));
 
   await quickPause();
 };
