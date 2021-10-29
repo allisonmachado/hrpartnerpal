@@ -90,4 +90,13 @@ export const fillTimesheetForm = async (driver: WebDriver): Promise<void> => {
   const fillableRows = await filterWeekDayRows(allRows);
 
   await Promise.all(fillableRows.map(row => fillTimesheetFormRow(row)));
+
+  await quickPause();
+};
+
+export const submitTimesheetForm = async (driver: WebDriver): Promise<void> => {
+  const loginButton = await driver.findElement(By.css('button[type=submit]'));
+  await loginButton.click();
+
+  await quickPause();
 };
