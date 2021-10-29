@@ -4,7 +4,7 @@ import { logger } from './src/logger';
 import { sleepSeconds } from './src/util';
 import { authenticate } from './src/steps/login';
 import { loadPortal } from './src/steps/init';
-import { clickOnLastTimesheetPeriod, clickOnTimesheetSideMenu } from './src/steps/timesheet';
+import { clickOnLastTimesheetPeriod, clickOnTimesheetSideMenu, fillTimesheetForm } from './src/steps/timesheet';
 
 import { PORTAL } from './src/util/environment';
 
@@ -23,7 +23,10 @@ import { PORTAL } from './src/util/environment';
     await clickOnLastTimesheetPeriod(driver);
     logger.info('last timesheet loaded successfully');
 
-    await sleepSeconds(5);
+    await fillTimesheetForm(driver);
+    logger.info('timesheet submitted successfully');
+
+    await sleepSeconds(60);
   } finally {
     await driver.quit();
   }
