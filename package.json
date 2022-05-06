@@ -1,6 +1,6 @@
 {
   "name": "hrpartnerpal",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Hrpartnerpal fills timesheet info in hrparter website",
   "main": "index.js",
   "author": "Allison Machado Gonçalves <aallison93@gmail.com> (https://allison.bsb.br/)",
