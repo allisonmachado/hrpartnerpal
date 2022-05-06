@@ -24,7 +24,7 @@ import {
 
     await clickOnTimesheetPeriod({
       driver,
-      targetDate: {
+      period: {
         year: 2023,
         month: 11,
       }

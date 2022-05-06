@@ -33,9 +33,9 @@ export const clickOnTimesheetSideMenu = async (driver: WebDriver): Promise<void>
   await quickPause();
 };
 
-export const clickOnTimesheetPeriod = async ({ driver, targetDate }: {
+export const clickOnTimesheetPeriod = async ({ driver, period }: {
   driver: WebDriver,
-  targetDate: {
+  period: {
     year: number,
     month: number,
   }
@@ -68,12 +68,10 @@ export const clickOnTimesheetPeriod = async ({ driver, targetDate }: {
       ...curr,
     }), {});
 
-  const targetRowIndex = datesMap[targetDate.year + ':' + targetDate.month];
+  const targetRowIndex = datesMap[period.year + ':' + period.month];
   const targetRow = rows[targetRowIndex];
 
-  if (targetRow === undefined) {
-    throw new Error('impossible to process: cannot find target date');
-  }
+  if (targetRow === undefined) throw new Error('impossible to process: cannot find target date');
 
   const lastPeriodActions = await targetRow?.findElements(By.css('a'));
   const updateButton = lastPeriodActions?.pop();
