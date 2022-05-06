@@ -1,8 +1,10 @@
 import { Builder } from 'selenium-webdriver';
 
-import { logger } from './src/logger';
-import { authenticate } from './src/steps/login';
+import { logger } from './src/util/logger';
 import { loadPortal } from './src/steps/init';
+import { InputError } from './src/util/error';
+import { authenticate } from './src/steps/login';
+import { getWebDriverArguments } from './src/util/input';
 import {
   clickOnTimesheetPeriod,
   clickOnTimesheetSideMenu,
@@ -10,15 +12,25 @@ import {
   submitTimesheetForm
 } from './src/steps/timesheet';
 
-import { TARGET_DATE } from './src/util/environment';
-
 (async () => {
   const driver = await new Builder().forBrowser('firefox').build();
   try {
-    await loadPortal(driver);
+    const {
+      loginUrl,
+      user,
+      period,
+    } = getWebDriverArguments();
+
+    await loadPortal({
+      driver,
+      loginUrl,
+    });
     logger.info('hrpartner website loaded');
 
-    await authenticate(driver);
+    await authenticate({
+      driver,
+      user,
+    });
     logger.info('login performed successfully');
 
     await clickOnTimesheetSideMenu(driver);
@@ -26,7 +38,7 @@ import { TARGET_DATE } from './src/util/environment';
 
     await clickOnTimesheetPeriod({
       driver,
-      period: TARGET_DATE
+      period,
     });
     logger.info('last timesheet loaded successfully');
 
@@ -35,8 +47,12 @@ import { TARGET_DATE } from './src/util/environment';
 
     await submitTimesheetForm(driver);
     logger.info('timesheet submitted successfully');
-  } catch (error) {
-    logger.error(error);
+  } catch (error: unknown) {
+    if (error instanceof InputError) {
+      logger.warn(error.message);
+      return;
+    }
+    logger.error(error); // stack trace
   } finally {
     await driver.quit();
   }

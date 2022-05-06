@@ -1,6 +1,6 @@
 import { By, Key, WebDriver, WebElement } from 'selenium-webdriver';
 
-import { quickPause } from '../../util/time';
+import { quickPause } from '../util/time';
 
 const isWeekDayText = (strongElementText: string): boolean => {
   return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
