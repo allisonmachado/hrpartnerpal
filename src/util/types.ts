@@ -1,5 +1,3 @@
-export type Environment = 'development' | 'production';
-
 export interface YearMonth {
   year: number,
   month: number,
