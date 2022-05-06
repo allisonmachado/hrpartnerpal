@@ -4,11 +4,13 @@ import { logger } from './src/logger';
 import { authenticate } from './src/steps/login';
 import { loadPortal } from './src/steps/init';
 import {
-  clickOnLastTimesheetPeriod,
+  clickOnTimesheetPeriod,
   clickOnTimesheetSideMenu,
   fillTimesheetForm,
   submitTimesheetForm
 } from './src/steps/timesheet';
+
+import { TARGET_DATE } from './src/util/environment';
 
 (async () => {
   const driver = await new Builder().forBrowser('firefox').build();
@@ -22,7 +24,10 @@ import {
     await clickOnTimesheetSideMenu(driver);
     logger.info('timesheet list loaded successfully');
 
-    await clickOnLastTimesheetPeriod(driver);
+    await clickOnTimesheetPeriod({
+      driver,
+      period: TARGET_DATE
+    });
     logger.info('last timesheet loaded successfully');
 
     await fillTimesheetForm(driver);
@@ -30,6 +35,8 @@ import {
 
     await submitTimesheetForm(driver);
     logger.info('timesheet submitted successfully');
+  } catch (error) {
+    logger.error(error);
   } finally {
     await driver.quit();
   }
