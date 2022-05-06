@@ -1,6 +1,6 @@
 import { WebDriver } from 'selenium-webdriver';
 
-import { quickPause } from '../../util/time';
+import { quickPause } from '../util/time';
 
 export const loadPortal = async ({ driver, loginUrl }: {
   driver: WebDriver,

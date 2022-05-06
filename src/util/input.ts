@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
-import { InputError } from './error';
 import { logger } from './logger';
+import { InputError } from './error';
 import { User, WebDriverArguments, YearMonth } from './types';
 
 const isValidURI = (data: string | undefined): data is string => {
@@ -64,9 +64,8 @@ export const getWebDriverArguments = (): WebDriverArguments => {
   const period = getTargetFromEnvironment();
   const user = getUserFromEnvironment();
 
-  logger.debug(`authentication url: ${loginUrl}`);
-  logger.debug(`target period: [${period.month}/${period.year}]`);
-  logger.debug(`user name: ${user.name}`);
+  logger.debug(`target period ${period.month}/${period.year}`);
+  logger.debug(`user name ${user.name}`);
 
   return {
     loginUrl,

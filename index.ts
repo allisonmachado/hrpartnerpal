@@ -1,16 +1,16 @@
 import { Builder } from 'selenium-webdriver';
 
 import { logger } from './src/util/logger';
-import { authenticate } from './src/steps/login';
 import { loadPortal } from './src/steps/init';
+import { InputError } from './src/util/error';
+import { authenticate } from './src/steps/login';
+import { getWebDriverArguments } from './src/util/input';
 import {
   clickOnTimesheetPeriod,
   clickOnTimesheetSideMenu,
   fillTimesheetForm,
   submitTimesheetForm
 } from './src/steps/timesheet';
-import { getWebDriverArguments } from './src/util/input';
-import { InputError } from './src/util/error';
 
 (async () => {
   const driver = await new Builder().forBrowser('firefox').build();

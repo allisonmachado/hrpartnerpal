@@ -1,7 +1,7 @@
 import { By, WebDriver } from 'selenium-webdriver';
 
-import { quickPause } from '../../util/time';
-import { User } from '../../util/types';
+import { quickPause } from '../util/time';
+import { User } from '../util/types';
 
 export const authenticate = async ({ driver, user }: {
   driver: WebDriver,
