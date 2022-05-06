@@ -4,7 +4,7 @@ import { logger } from './src/logger';
 import { authenticate } from './src/steps/login';
 import { loadPortal } from './src/steps/init';
 import {
-  clickOnLastTimesheetPeriod,
+  clickOnTimesheetPeriod,
   clickOnTimesheetSideMenu,
   fillTimesheetForm,
   submitTimesheetForm
@@ -22,7 +22,13 @@ import {
     await clickOnTimesheetSideMenu(driver);
     logger.info('timesheet list loaded successfully');
 
-    await clickOnLastTimesheetPeriod(driver);
+    await clickOnTimesheetPeriod({
+      driver,
+      targetDate: {
+        year: 2023,
+        month: 11,
+      }
+    });
     logger.info('last timesheet loaded successfully');
 
     await fillTimesheetForm(driver);
@@ -30,6 +36,8 @@ import {
 
     await submitTimesheetForm(driver);
     logger.info('timesheet submitted successfully');
+  } catch (error) {
+    logger.error(error);
   } finally {
     await driver.quit();
   }

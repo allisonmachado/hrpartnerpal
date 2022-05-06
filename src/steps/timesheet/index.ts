@@ -33,15 +33,50 @@ export const clickOnTimesheetSideMenu = async (driver: WebDriver): Promise<void>
   await quickPause();
 };
 
-export const clickOnLastTimesheetPeriod = async (driver: WebDriver): Promise<void> => {
+export const clickOnTimesheetPeriod = async ({ driver, targetDate }: {
+  driver: WebDriver,
+  targetDate: {
+    year: number,
+    month: number,
+  }
+}): Promise<void> => {
   const [timesheetTable] = await driver.findElements(By.css('table'));
-  const rows = await timesheetTable.findElements(By.css('tr'));
+  const [timesheetTableBody] = await timesheetTable.findElements(By.css('tbody'));
+  const rows = await timesheetTableBody.findElements(By.css('tr'));
 
-  const lastPeriodRow = rows.pop();
+  const strongWebElementsPromises = rows.map(r => r.findElements(By.css('strong')));
+  const strongWebElements = await Promise.all(strongWebElementsPromises);
 
-  const lastPeriodActions = await lastPeriodRow?.findElements(By.css('a'));
+  const textPromises = strongWebElements
+    .map(strongTuple => strongTuple.pop())
+    .map(textWebElement => textWebElement?.getText());
+
+  const texts = (await Promise.all(textPromises))
+    .map<string>(t => t as string);
+
+  const datesMap = texts
+    .map(d => new Date(d))
+    .map(d => ({
+      year: d.getFullYear(),
+      month: d.getMonth() + 1,
+    }))
+    .map((d, i) => ({
+      [d.year + ':' + d.month]: i,
+    }))
+    .reduce((acc, curr) => ({
+      ...acc,
+      ...curr,
+    }), {});
+
+  const targetRowIndex = datesMap[targetDate.year + ':' + targetDate.month];
+  const targetRow = rows[targetRowIndex];
+
+  if (targetRow === undefined) {
+    throw new Error('impossible to process: cannot find target date');
+  }
+
+  const lastPeriodActions = await targetRow?.findElements(By.css('a'));
   const updateButton = lastPeriodActions?.pop();
-
   updateButton?.click();
 
   await quickPause();
