@@ -10,6 +10,8 @@ import {
   submitTimesheetForm
 } from './src/steps/timesheet';
 
+import { TARGET_DATE } from './src/util/environment';
+
 (async () => {
   const driver = await new Builder().forBrowser('firefox').build();
   try {
@@ -24,10 +26,7 @@ import {
 
     await clickOnTimesheetPeriod({
       driver,
-      period: {
-        year: 2023,
-        month: 11,
-      }
+      period: TARGET_DATE
     });
     logger.info('last timesheet loaded successfully');
 
