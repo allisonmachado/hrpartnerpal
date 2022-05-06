@@ -39,9 +39,10 @@ $ npm run local
 
 ## Next steps
 This project is currently at its earlier versions and it provides very basic functionality.
-It is not yet very flexible in terms of installation and configuration options:
-- For now it only updates the last month of the user timesheet
+It is not yet very flexible in terms of configuration options:
+
 - For now it requires input via environment variables for the sake of simplicity
+- For now it only connects to a locally installed driver
 
 However it also means we have plenty of room for improvements, pull-requests and fun.
 So please take a look [at the desired features here](https://github.com/allisonmachado/hrpartnerpal/issues) to be included in the Hrpartnerpal!
